@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 export default function Navbar(props) {
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}>
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
           {props.title}
@@ -28,6 +28,11 @@ export default function Navbar(props) {
               </a>
             </li>
           </ul>
+
+          <div className={`form-check form-switch ${props.mode === 'dark' ? 'text-light' : ''}`}>
+            <input className="form-check-input" onClick={props.toggleMode} type="checkbox" role="switch" id="darkMode" />
+            <label className="form-check-label" htmlFor="darkMode">Enable Dark Mode</label>
+          </div>
         </div>
       </div>
     </nav>
@@ -36,6 +41,8 @@ export default function Navbar(props) {
 
 Navbar.propTypes = {
     title: PropTypes.string.isRequired,
+    mode: PropTypes.string.isRequired,
+    toggleMode: PropTypes.func.isRequired,
 }
 
 // Navbar.defaultProps = {

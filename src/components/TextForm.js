@@ -45,7 +45,7 @@ export default function TextForm(props) {
 
   const handleExtraSpacesClick = () => {
     const newText = text.split(/[ ]+/).join(" ");
-    setText(newText);
+    setText(newText); 
   }
 
   const getWordsCount = () => {
@@ -61,7 +61,10 @@ export default function TextForm(props) {
   };
 
   return (
-    <>
+    <div 
+    style={{
+      color: props.mode === 'light' ? '#042743' : 'white',
+    }}>
       <div className="container my-5">
         <h1 className="my-3">{props.heading}</h1>
         <div className="mb-3">
@@ -72,6 +75,10 @@ export default function TextForm(props) {
             placeholder="Enter your text here"
             value={text}
             onChange={handleOnChange}
+            style={{
+              backgroundColor: props.mode === 'dark' ? '#042743' : 'white',
+              color: props.mode === 'light' ? '#042743' : 'white',
+            }}
           ></textarea>
         </div>
         <div className="buttons">
@@ -120,12 +127,13 @@ export default function TextForm(props) {
         <h3>Preview</h3>
         <p className="my-2">{text}</p>
       </div>
-    </>
+    </div>
   );
 }
 
 TextForm.propTypes = {
   heading: PropTypes.string,
+  mode: PropTypes.string,
 };
 
 TextForm.defaultProps = {
