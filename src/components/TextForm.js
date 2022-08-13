@@ -12,16 +12,19 @@ export default function TextForm(props) {
     setText(text.trim());
     const upperText = text.toUpperCase();
     setText(upperText);
+    props.showAlert("success", "Text successfully converted to upper case");
   };
 
   const handleLowercaseClick = () => {
     setText(text.trim());
-    const upperText = text.toLowerCase();
-    setText(upperText);
+    const lowerText = text.toLowerCase();
+    setText(lowerText);
+    props.showAlert("success", "Text successfully converted to lower case");
   };
 
   const handleClearTextClick = () => {
     setText('');
+    props.showAlert("success", "Text cleared successfully");
   };
 
   const handleTitleCaseClick = () => {
@@ -35,17 +38,20 @@ export default function TextForm(props) {
     );
     
     setText(titleCaseText);
+    props.showAlert("success", "Text successfully converted to title case");
   };
 
   const handleCopyClick = () => {
     const myBoxElement = document.getElementById('myBox');
     myBoxElement.select();
     navigator.clipboard.writeText(myBoxElement.value);
+    props.showAlert("success", "Text successfully copied to clipboard");
   }
 
   const handleExtraSpacesClick = () => {
     const newText = text.split(/[ ]+/).join(" ");
     setText(newText); 
+    props.showAlert("success", "Removed extra white spaces from the text");
   }
 
   const getWordsCount = () => {
