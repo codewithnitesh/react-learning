@@ -37,6 +37,17 @@ export default function TextForm(props) {
     setText(titleCaseText);
   };
 
+  const handleCopyClick = () => {
+    const myBoxElement = document.getElementById('myBox');
+    myBoxElement.select();
+    navigator.clipboard.writeText(myBoxElement.value);
+  }
+
+  const handleExtraSpacesClick = () => {
+    const newText = text.split(/[ ]+/).join(" ");
+    setText(newText);
+  }
+
   const getWordsCount = () => {
     if (!text || !text.trim().length) {
       return 0;
@@ -63,22 +74,31 @@ export default function TextForm(props) {
             onChange={handleOnChange}
           ></textarea>
         </div>
+        <div className="buttons">
+            <button className="btn btn-primary" onClick={handleUppercaseClick}>
+              Convert to Uppercase
+            </button>
 
-        <button className="btn btn-primary mr-2" onClick={handleUppercaseClick}>
-          Convert to Uppercase
-        </button>
+            <button className="btn btn-primary" onClick={handleLowercaseClick}>
+              Convert to Lowercase
+            </button>
 
-        <button className="btn btn-primary mr-2" onClick={handleLowercaseClick}>
-          Convert to Lowercase
-        </button>
+            <button className="btn btn-primary" onClick={handleTitleCaseClick}>
+              Convert to Title Case
+            </button>
 
-        <button className="btn btn-primary mr-2" onClick={handleTitleCaseClick}>
-          Convert to Title Case
-        </button>
+            <button className="btn btn-primary" onClick={handleExtraSpacesClick}>
+              Remove Extra Spaces
+            </button>
 
-        <button className="btn btn-primary mr-2" onClick={handleClearTextClick}>
-        Clear Text
-        </button>
+            <button className="btn btn-primary" onClick={handleCopyClick}>
+              Copy Text
+            </button>
+
+            <button className="btn btn-primary" onClick={handleClearTextClick}>
+            Clear Text
+            </button>
+        </div>
       </div>
       <div className="container my-5">
         <h2>Your Text Summary</h2>
