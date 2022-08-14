@@ -15,9 +15,8 @@ export default function About(props) {
     }
 
   return (
-    <div>
-        <div className='container'>
-            <h1 className='my-5' style={{...getStyle(), borderBottom: 'none'}}>About Us</h1>
+        <>
+            <h1 className='my-3' style={{...getStyle(), borderBottom: 'none'}}>About Us</h1>
             <div className="accordion" id="accordionExample">
                 <div className="accordion-item">
                     <h2 className="accordion-header" id="headingOne">
@@ -56,7 +55,6 @@ export default function About(props) {
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </>
   )
 }

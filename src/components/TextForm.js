@@ -5,18 +5,18 @@ export default function TextForm(props) {
   const [text, setText] = useState("");
 
   const handleOnChange = (event) => {
-    setText(event.target.value);
+    const newText = event.target.value.split(/^[ ]+[ ]$/).join(" ");
+
+    setText(newText);
   };
 
   const handleUppercaseClick = () => {
-    setText(text.trim());
     const upperText = text.toUpperCase();
     setText(upperText);
     props.showAlert("success", "Text successfully converted to upper case");
   };
 
   const handleLowercaseClick = () => {
-    setText(text.trim());
     const lowerText = text.toLowerCase();
     setText(lowerText);
     props.showAlert("success", "Text successfully converted to lower case");
@@ -28,8 +28,6 @@ export default function TextForm(props) {
   };
 
   const handleTitleCaseClick = () => {
-    setText(text.trim());
-
     const titleCaseText = text.replace(
         /\w\S*/g,
         function(word) {
@@ -45,6 +43,7 @@ export default function TextForm(props) {
     const myBoxElement = document.getElementById('myBox');
     myBoxElement.select();
     navigator.clipboard.writeText(myBoxElement.value);
+    document.getSelection().removeAllRanges();
     props.showAlert("success", "Text successfully copied to clipboard");
   }
 
@@ -71,14 +70,13 @@ export default function TextForm(props) {
     style={{
       color: props.mode === 'light' ? '#042743' : 'white',
     }}>
-      <div className="container my-5">
+      <div className="container">
         <h1 className="my-3">{props.heading}</h1>
         <div className="mb-3">
           <textarea
             className="form-control"
             id="myBox"
             rows="10"
-            placeholder="Enter your text here"
             value={text}
             onChange={handleOnChange}
             style={{
@@ -88,27 +86,27 @@ export default function TextForm(props) {
           ></textarea>
         </div>
         <div className="buttons">
-            <button className="btn btn-primary" onClick={handleUppercaseClick}>
+            <button disabled={!text.length} className="btn btn-primary" onClick={handleUppercaseClick}>
               Convert to Uppercase
             </button>
 
-            <button className="btn btn-primary" onClick={handleLowercaseClick}>
+            <button disabled={!text.length} className="btn btn-primary" onClick={handleLowercaseClick}>
               Convert to Lowercase
             </button>
 
-            <button className="btn btn-primary" onClick={handleTitleCaseClick}>
+            <button disabled={!text.length} className="btn btn-primary" onClick={handleTitleCaseClick}>
               Convert to Title Case
             </button>
 
-            <button className="btn btn-primary" onClick={handleExtraSpacesClick}>
+            <button disabled={!text.length} className="btn btn-primary" onClick={handleExtraSpacesClick}>
               Remove Extra Spaces
             </button>
 
-            <button className="btn btn-primary" onClick={handleCopyClick}>
+            <button disabled={!text.length} className="btn btn-primary" onClick={handleCopyClick}>
               Copy Text
             </button>
 
-            <button className="btn btn-primary" onClick={handleClearTextClick}>
+            <button disabled={!text.length} className="btn btn-primary" onClick={handleClearTextClick}>
             Clear Text
             </button>
         </div>
@@ -131,7 +129,7 @@ export default function TextForm(props) {
       </div>
       <div className="container">
         <h3>Preview</h3>
-        <p className="my-2">{text}</p>
+        <p className="my-2">{text.length ? text : 'Nothing to preview'}</p>
       </div>
     </div>
   );
