@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
+import "./TextForm.css";
+
 export default function TextForm(props) {
   const [text, setText] = useState("");
 
@@ -36,19 +38,16 @@ export default function TextForm(props) {
     );
     
     setText(titleCaseText);
-    props.showAlert("success", "Text successfully converted to title case");
-  };
+      props.showAlert("success", "Text successfully converted to title case");
+    };
 
   const handleCopyClick = () => {
-    const myBoxElement = document.getElementById('myBox');
-    myBoxElement.select();
-    navigator.clipboard.writeText(myBoxElement.value);
-    document.getSelection().removeAllRanges();
+    navigator.clipboard.writeText(text);
     props.showAlert("success", "Text successfully copied to clipboard");
   }
 
   const handleExtraSpacesClick = () => {
-    const newText = text.split(/[ ]+/).join(" ");
+    const newText = text.split("\n").map(a => a.trim()).join("\n").split(/[ ]+/).join(" ");
     setText(newText); 
     props.showAlert("success", "Removed extra white spaces from the text");
   }
@@ -58,7 +57,7 @@ export default function TextForm(props) {
       return 0;
     }
 
-    return text?.trim().split(" ").length;
+    return text?.trim().split(/\s+/).length;
   };
 
   const getCharactersCount = () => {
