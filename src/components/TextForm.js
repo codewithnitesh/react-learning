@@ -38,8 +38,8 @@ export default function TextForm(props) {
     );
     
     setText(titleCaseText);
-      props.showAlert("success", "Text successfully converted to title case");
-    };
+    props.showAlert("success", "Text successfully converted to title case");
+  };
 
   const handleCopyClick = () => {
     navigator.clipboard.writeText(text);
@@ -47,7 +47,7 @@ export default function TextForm(props) {
   }
 
   const handleExtraSpacesClick = () => {
-    const newText = text.split(/[ ]+/).join(" ");
+    const newText = text.split("\n").map(a => a.trim()).join("\n").split(/[ ]+/).join(" ");
     setText(newText); 
     props.showAlert("success", "Removed extra white spaces from the text");
   }
